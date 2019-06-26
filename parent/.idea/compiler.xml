@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="annotation" />
+        <module name="boot-starter" />
+        <module name="core" />
+        <module name="dts" />
+        <module name="extension" />
+        <module name="generator" />
+        <module name="plus" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="annotation" target="1.8" />
+      <module name="boot-starter" target="1.8" />
+      <module name="core" target="1.8" />
+      <module name="dts" target="1.8" />
+      <module name="extension" target="1.8" />
+      <module name="generator" target="1.8" />
+      <module name="parent" target="1.8" />
+      <module name="plus" target="1.8" />
+      <module name="reus" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

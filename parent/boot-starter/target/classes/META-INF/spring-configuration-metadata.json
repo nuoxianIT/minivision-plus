@@ -1,0 +1,454 @@
+{
+  "groups": [
+    {
+      "name": "mybatis-plus",
+      "type": "com.minivision.plus.starter.autoconfigure.MybatisPlusProperties",
+      "sourceType": "com.minivision.plus.starter.autoconfigure.MybatisPlusProperties"
+    },
+    {
+      "name": "mybatis-plus.configuration",
+      "type": "com.minivision.plus.core.MybatisConfiguration",
+      "sourceType": "com.minivision.plus.starter.autoconfigure.MybatisPlusProperties"
+    },
+    {
+      "name": "mybatis-plus.global-config",
+      "type": "com.minivision.plus.core.config.GlobalConfig",
+      "sourceType": "com.minivision.plus.starter.autoconfigure.MybatisPlusProperties"
+    },
+    {
+      "name": "mybatis-plus.global-config.db-config",
+      "type": "com.minivision.plus.core.config.GlobalConfig$DbConfig",
+      "sourceType": "com.minivision.plus.core.config.GlobalConfig",
+      "sourceMethod": "getDbConfig()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "mybatis-plus.check-config-location",
+      "type": "java.lang.Boolean",
+      "description": "Indicates whether perform presence check of the MyBatis xml config file.",
+      "sourceType": "com.minivision.plus.starter.autoconfigure.MybatisPlusProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "mybatis-plus.config-location",
+      "type": "java.lang.String",
+      "description": "Location of MyBatis xml config file.",
+      "sourceType": "com.minivision.plus.starter.autoconfigure.MybatisPlusProperties"
+    },
+    {
+      "name": "mybatis-plus.configuration-properties",
+      "type": "java.util.Properties",
+      "description": "Externalized properties for MyBatis configuration.",
+      "sourceType": "com.minivision.plus.starter.autoconfigure.MybatisPlusProperties"
+    },
+    {
+      "name": "mybatis-plus.configuration.aggressive-lazy-loading",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.auto-mapping-behavior",
+      "type": "org.apache.ibatis.session.AutoMappingBehavior",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.auto-mapping-unknown-column-behavior",
+      "type": "org.apache.ibatis.session.AutoMappingUnknownColumnBehavior",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.cache-enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.cache-names",
+      "type": "java.util.Collection<java.lang.String>",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.caches",
+      "type": "java.util.Collection<org.apache.ibatis.cache.Cache>",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.call-setters-on-nulls",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.configuration-factory",
+      "type": "java.lang.Class<?>",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.database-id",
+      "type": "java.lang.String",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.default-executor-type",
+      "type": "org.apache.ibatis.session.ExecutorType",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.default-fetch-size",
+      "type": "java.lang.Integer",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.default-statement-timeout",
+      "type": "java.lang.Integer",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.environment",
+      "type": "org.apache.ibatis.mapping.Environment",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.global-config",
+      "type": "com.minivision.plus.core.config.GlobalConfig",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.incomplete-cache-refs",
+      "type": "java.util.Collection<org.apache.ibatis.builder.CacheRefResolver>",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.incomplete-methods",
+      "type": "java.util.Collection<org.apache.ibatis.builder.annotation.MethodResolver>",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.incomplete-result-maps",
+      "type": "java.util.Collection<org.apache.ibatis.builder.ResultMapResolver>",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.incomplete-statements",
+      "type": "java.util.Collection<org.apache.ibatis.builder.xml.XMLStatementBuilder>",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.interceptors",
+      "type": "java.util.List<org.apache.ibatis.plugin.Interceptor>",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.jdbc-type-for-null",
+      "type": "org.apache.ibatis.type.JdbcType",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.key-generator-names",
+      "type": "java.util.Collection<java.lang.String>",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.key-generators",
+      "type": "java.util.Collection<org.apache.ibatis.executor.keygen.KeyGenerator>",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.lazy-load-trigger-methods",
+      "type": "java.util.Set<java.lang.String>",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.lazy-loading-enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.local-cache-scope",
+      "type": "org.apache.ibatis.session.LocalCacheScope",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.log-impl",
+      "type": "java.lang.Class<? extends org.apache.ibatis.logging.Log>",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.log-prefix",
+      "type": "java.lang.String",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.map-underscore-to-camel-case",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.mapped-statement-names",
+      "type": "java.util.Collection<java.lang.String>",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.mapped-statements",
+      "type": "java.util.Collection<org.apache.ibatis.mapping.MappedStatement>",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.multiple-result-sets-enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.object-factory",
+      "type": "org.apache.ibatis.reflection.factory.ObjectFactory",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.object-wrapper-factory",
+      "type": "org.apache.ibatis.reflection.wrapper.ObjectWrapperFactory",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.parameter-map-names",
+      "type": "java.util.Collection<java.lang.String>",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.parameter-maps",
+      "type": "java.util.Collection<org.apache.ibatis.mapping.ParameterMap>",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.proxy-factory",
+      "type": "org.apache.ibatis.executor.loader.ProxyFactory",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.reflector-factory",
+      "type": "org.apache.ibatis.reflection.ReflectorFactory",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.result-map-names",
+      "type": "java.util.Collection<java.lang.String>",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.result-maps",
+      "type": "java.util.Collection<org.apache.ibatis.mapping.ResultMap>",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.return-instance-for-empty-row",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.safe-result-handler-enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.safe-row-bounds-enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.sql-fragments",
+      "type": "java.util.Map<java.lang.String,org.apache.ibatis.parsing.XNode>",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.use-actual-param-name",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.use-column-label",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.use-generated-keys",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.variables",
+      "type": "java.util.Properties",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.configuration.vfs-impl",
+      "type": "java.lang.Class<? extends org.apache.ibatis.io.VFS>",
+      "sourceType": "com.minivision.plus.core.MybatisConfiguration"
+    },
+    {
+      "name": "mybatis-plus.executor-type",
+      "type": "org.apache.ibatis.session.ExecutorType",
+      "description": "Execution mode for {@link org.mybatis.spring.SqlSessionTemplate}.",
+      "sourceType": "com.minivision.plus.starter.autoconfigure.MybatisPlusProperties"
+    },
+    {
+      "name": "mybatis-plus.global-config.banner",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.minivision.plus.core.config.GlobalConfig"
+    },
+    {
+      "name": "mybatis-plus.global-config.datacenter-id",
+      "type": "java.lang.Long",
+      "sourceType": "com.minivision.plus.core.config.GlobalConfig"
+    },
+    {
+      "name": "mybatis-plus.global-config.db-config.capital-mode",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.minivision.plus.core.config.GlobalConfig$DbConfig"
+    },
+    {
+      "name": "mybatis-plus.global-config.db-config.column-format",
+      "type": "java.lang.String",
+      "sourceType": "com.minivision.plus.core.config.GlobalConfig$DbConfig"
+    },
+    {
+      "name": "mybatis-plus.global-config.db-config.id-type",
+      "type": "com.minivision.plus.annotation.IdType",
+      "sourceType": "com.minivision.plus.core.config.GlobalConfig$DbConfig"
+    },
+    {
+      "name": "mybatis-plus.global-config.db-config.insert-strategy",
+      "type": "com.minivision.plus.annotation.FieldStrategy",
+      "sourceType": "com.minivision.plus.core.config.GlobalConfig$DbConfig"
+    },
+    {
+      "name": "mybatis-plus.global-config.db-config.key-generator",
+      "type": "com.minivision.plus.core.incrementer.IKeyGenerator",
+      "sourceType": "com.minivision.plus.core.config.GlobalConfig$DbConfig"
+    },
+    {
+      "name": "mybatis-plus.global-config.db-config.logic-delete-value",
+      "type": "java.lang.String",
+      "sourceType": "com.minivision.plus.core.config.GlobalConfig$DbConfig"
+    },
+    {
+      "name": "mybatis-plus.global-config.db-config.logic-not-delete-value",
+      "type": "java.lang.String",
+      "sourceType": "com.minivision.plus.core.config.GlobalConfig$DbConfig"
+    },
+    {
+      "name": "mybatis-plus.global-config.db-config.schema",
+      "type": "java.lang.String",
+      "sourceType": "com.minivision.plus.core.config.GlobalConfig$DbConfig"
+    },
+    {
+      "name": "mybatis-plus.global-config.db-config.select-strategy",
+      "type": "com.minivision.plus.annotation.FieldStrategy",
+      "sourceType": "com.minivision.plus.core.config.GlobalConfig$DbConfig"
+    },
+    {
+      "name": "mybatis-plus.global-config.db-config.table-prefix",
+      "type": "java.lang.String",
+      "sourceType": "com.minivision.plus.core.config.GlobalConfig$DbConfig"
+    },
+    {
+      "name": "mybatis-plus.global-config.db-config.table-underline",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.minivision.plus.core.config.GlobalConfig$DbConfig"
+    },
+    {
+      "name": "mybatis-plus.global-config.db-config.update-strategy",
+      "type": "com.minivision.plus.annotation.FieldStrategy",
+      "sourceType": "com.minivision.plus.core.config.GlobalConfig$DbConfig"
+    },
+    {
+      "name": "mybatis-plus.global-config.enable-sql-runner",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.minivision.plus.core.config.GlobalConfig"
+    },
+    {
+      "name": "mybatis-plus.global-config.mapper-registry-cache",
+      "type": "java.util.Set<java.lang.String>",
+      "sourceType": "com.minivision.plus.core.config.GlobalConfig"
+    },
+    {
+      "name": "mybatis-plus.global-config.meta-object-handler",
+      "type": "com.minivision.plus.core.handlers.MetaObjectHandler",
+      "sourceType": "com.minivision.plus.core.config.GlobalConfig"
+    },
+    {
+      "name": "mybatis-plus.global-config.sql-injector",
+      "type": "com.minivision.plus.core.injector.ISqlInjector",
+      "sourceType": "com.minivision.plus.core.config.GlobalConfig"
+    },
+    {
+      "name": "mybatis-plus.global-config.super-mapper-class",
+      "type": "java.lang.Class<?>",
+      "sourceType": "com.minivision.plus.core.config.GlobalConfig"
+    },
+    {
+      "name": "mybatis-plus.global-config.worker-id",
+      "type": "java.lang.Long",
+      "sourceType": "com.minivision.plus.core.config.GlobalConfig"
+    },
+    {
+      "name": "mybatis-plus.mapper-locations",
+      "type": "java.lang.String[]",
+      "description": "Locations of MyBatis mapper files. @since 3.1.2 add default value",
+      "sourceType": "com.minivision.plus.starter.autoconfigure.MybatisPlusProperties",
+      "defaultValue": [
+        "classpath*:\/mapper\/**\/*.xml"
+      ]
+    },
+    {
+      "name": "mybatis-plus.type-aliases-package",
+      "type": "java.lang.String",
+      "description": "Packages to search type aliases. (Package delimiters are \",; \\t\\n\")",
+      "sourceType": "com.minivision.plus.starter.autoconfigure.MybatisPlusProperties"
+    },
+    {
+      "name": "mybatis-plus.type-aliases-super-type",
+      "type": "java.lang.Class<?>",
+      "description": "The super class for filtering type alias. If this not specifies, the MyBatis deal as type alias all classes that searched from typeAliasesPackage.",
+      "sourceType": "com.minivision.plus.starter.autoconfigure.MybatisPlusProperties"
+    },
+    {
+      "name": "mybatis-plus.type-enums-package",
+      "type": "java.lang.String",
+      "description": "TODO 枚举包扫描",
+      "sourceType": "com.minivision.plus.starter.autoconfigure.MybatisPlusProperties"
+    },
+    {
+      "name": "mybatis-plus.type-handlers-package",
+      "type": "java.lang.String",
+      "description": "Packages to search for type handlers. (Package delimiters are \",; \\t\\n\")",
+      "sourceType": "com.minivision.plus.starter.autoconfigure.MybatisPlusProperties"
+    },
+    {
+      "name": "mybatis-plus.global-config.db-config.column-like",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.minivision.plus.core.config.GlobalConfig$DbConfig",
+      "deprecated": true,
+      "deprecation": {}
+    },
+    {
+      "name": "mybatis-plus.global-config.db-config.db-type",
+      "type": "com.minivision.plus.annotation.DbType",
+      "sourceType": "com.minivision.plus.core.config.GlobalConfig$DbConfig",
+      "deprecated": true,
+      "deprecation": {}
+    },
+    {
+      "name": "mybatis-plus.global-config.db-config.field-strategy",
+      "type": "com.minivision.plus.annotation.FieldStrategy",
+      "sourceType": "com.minivision.plus.core.config.GlobalConfig$DbConfig",
+      "deprecated": true,
+      "deprecation": {}
+    },
+    {
+      "name": "mybatis-plus.global-config.sql-parser-cache",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.minivision.plus.core.config.GlobalConfig",
+      "deprecated": true,
+      "deprecation": {}
+    }
+  ],
+  "hints": []
+}

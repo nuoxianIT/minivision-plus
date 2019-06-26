@@ -1,0 +1,12 @@
+com\minivision\plus\dts\sender\RabbitRmtSender.class
+com\minivision\plus\dts\EnableDtsRabbit.class
+com\minivision\plus\dts\config\DtsAutoConfiguration.class
+com\minivision\plus\dts\DtsConstants.class
+com\minivision\plus\dts\sender\IRmtSender.class
+com\minivision\plus\dts\parser\JacksonDtsParser.class
+com\minivision\plus\dts\config\RabbitConfiguration.class
+com\minivision\plus\dts\parser\IDtsParser.class
+com\minivision\plus\dts\listener\IDtsListener.class
+META-INF\spring-autoconfigure-metadata.properties
+com\minivision\plus\dts\listener\RabbitRmtListener.class
+com\minivision\plus\dts\DtsMeta.class

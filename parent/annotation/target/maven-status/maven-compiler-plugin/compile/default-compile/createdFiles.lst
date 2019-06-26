@@ -1,0 +1,13 @@
+com\minivision\plus\annotation\FieldFill.class
+com\minivision\plus\annotation\SqlCondition.class
+com\minivision\plus\annotation\TableLogic.class
+com\minivision\plus\annotation\EnumValue.class
+com\minivision\plus\annotation\KeySequence.class
+com\minivision\plus\annotation\TableName.class
+com\minivision\plus\annotation\FieldStrategy.class
+com\minivision\plus\annotation\SqlParser.class
+com\minivision\plus\annotation\Version.class
+com\minivision\plus\annotation\TableField.class
+com\minivision\plus\annotation\IdType.class
+com\minivision\plus\annotation\TableId.class
+com\minivision\plus\annotation\DbType.class

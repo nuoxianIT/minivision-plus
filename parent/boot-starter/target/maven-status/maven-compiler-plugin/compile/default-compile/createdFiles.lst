@@ -1,0 +1,9 @@
+com\minivision\plus\starter\autoconfigure\MybatisPlusAutoConfiguration$MapperScannerRegistrarNotFoundConfiguration.class
+com\minivision\plus\starter\autoconfigure\SpringBootVFS.class
+com\minivision\plus\starter\autoconfigure\MybatisPlusPropertiesCustomizer.class
+com\minivision\plus\starter\autoconfigure\MybatisPlusProperties.class
+com\minivision\plus\starter\autoconfigure\MybatisPlusAutoConfiguration.class
+META-INF\spring-autoconfigure-metadata.properties
+com\minivision\plus\starter\autoconfigure\MybatisPlusAutoConfiguration$AutoConfiguredMapperScannerRegistrar.class
+META-INF\spring-configuration-metadata.json
+com\minivision\plus\starter\autoconfigure\ConfigurationCustomizer.class
