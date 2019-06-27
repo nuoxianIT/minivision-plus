@@ -32,13 +32,10 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.PrintStream;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -85,7 +82,7 @@ public abstract class AbstractTemplateEngine {
                 InjectionConfig injectionConfig = getConfigBuilder().getInjectionConfig();
                 if (null != injectionConfig) {
                     injectionConfig.initMap();
-                    objectMap.put("cfg" , injectionConfig.getMap());
+                    objectMap.put("cfg", injectionConfig.getMap());
                     List<FileOutConfig> focList = injectionConfig.getFileOutConfigList();
                     if (CollectionUtils.isNotEmpty(focList)) {
                         for (FileOutConfig foc : focList) {
@@ -148,7 +145,7 @@ public abstract class AbstractTemplateEngine {
                 }
             }
         } catch (Exception e) {
-            logger.error("无法创建文件，请检查配置信息！" , e);
+            logger.error("无法创建文件，请检查配置信息！", e);
         }
         return this;
     }
@@ -195,14 +192,16 @@ public abstract class AbstractTemplateEngine {
                     } else if (osName.contains("Windows")) {
                         // 指定输出路径
                         if (outDir.contains("/zip")) {
-                            file = outDir.replaceAll("/zip" , "/file");
+                            file = outDir.replaceAll("/zip", "/file");
                         }
+                        logger.info("[AbstarctTemplateEngine] outDir is {}", outDir);
                         OutputStream outputStream = new FileOutputStream(file + value + ".zip");
+                        logger.info("[AbstarctTemplateEngine] outputStream is {}", file + value + ".zip");
                         Runtime.getRuntime().exec("cmd /c start " + file);
                         // 创建zip压缩包
                         toZip(outDir, outputStream, true);
                         // 删掉普通文件夹
-                        deleteDir(new File(outDir));
+                        // deleteDir(new File(outDir));
                     } else {
                         logger.debug("文件输出目录:" + outDir);
                     }
@@ -235,7 +234,7 @@ public abstract class AbstractTemplateEngine {
             long end = System.currentTimeMillis();
             System.out.println("压缩完成，耗时：" + (end - start) + " ms");
         } catch (Exception e) {
-            throw new RuntimeException("zip error from ZipUtils" , e);
+            throw new RuntimeException("zip error from ZipUtils", e);
         } finally {
             if (zos != null) {
                 try {
@@ -335,40 +334,40 @@ public abstract class AbstractTemplateEngine {
         Map<String, Object> objectMap = new HashMap<>(30);
         ConfigBuilder config = getConfigBuilder();
         if (config.getStrategyConfig().isControllerMappingHyphenStyle()) {
-            objectMap.put("controllerMappingHyphenStyle" , config.getStrategyConfig().isControllerMappingHyphenStyle());
-            objectMap.put("controllerMappingHyphen" , StringUtils.camelToHyphen(tableInfo.getEntityPath()));
+            objectMap.put("controllerMappingHyphenStyle", config.getStrategyConfig().isControllerMappingHyphenStyle());
+            objectMap.put("controllerMappingHyphen", StringUtils.camelToHyphen(tableInfo.getEntityPath()));
         }
-        objectMap.put("restControllerStyle" , config.getStrategyConfig().isRestControllerStyle());
-        objectMap.put("config" , config);
-        objectMap.put("package" , config.getPackageInfo());
+        objectMap.put("restControllerStyle", config.getStrategyConfig().isRestControllerStyle());
+        objectMap.put("config", config);
+        objectMap.put("package", config.getPackageInfo());
         GlobalConfig globalConfig = config.getGlobalConfig();
-        objectMap.put("author" , globalConfig.getAuthor());
-        objectMap.put("idType" , globalConfig.getIdType() == null ? null : globalConfig.getIdType().toString());
-        objectMap.put("logicDeleteFieldName" , config.getStrategyConfig().getLogicDeleteFieldName());
-        objectMap.put("versionFieldName" , config.getStrategyConfig().getVersionFieldName());
-        objectMap.put("activeRecord" , globalConfig.isActiveRecord());
-        objectMap.put("kotlin" , globalConfig.isKotlin());
-        objectMap.put("swagger2" , globalConfig.isSwagger2());
-        objectMap.put("date" , new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
-        objectMap.put("table" , tableInfo);
-        objectMap.put("enableCache" , globalConfig.isEnableCache());
-        objectMap.put("baseResultMap" , globalConfig.isBaseResultMap());
-        objectMap.put("baseColumnList" , globalConfig.isBaseColumnList());
-        objectMap.put("entity" , tableInfo.getEntityName());
-        objectMap.put("entitySerialVersionUID" , config.getStrategyConfig().isEntitySerialVersionUID());
-        objectMap.put("entityColumnConstant" , config.getStrategyConfig().isEntityColumnConstant());
-        objectMap.put("entityBuilderModel" , config.getStrategyConfig().isEntityBuilderModel());
-        objectMap.put("entityLombokModel" , config.getStrategyConfig().isEntityLombokModel());
-        objectMap.put("entityBooleanColumnRemoveIsPrefix" , config.getStrategyConfig().isEntityBooleanColumnRemoveIsPrefix());
-        objectMap.put("superEntityClass" , getSuperClassName(config.getSuperEntityClass()));
-        objectMap.put("superMapperClassPackage" , config.getSuperMapperClass());
-        objectMap.put("superMapperClass" , getSuperClassName(config.getSuperMapperClass()));
-        objectMap.put("superServiceClassPackage" , config.getSuperServiceClass());
-        objectMap.put("superServiceClass" , getSuperClassName(config.getSuperServiceClass()));
-        objectMap.put("superServiceImplClassPackage" , config.getSuperServiceImplClass());
-        objectMap.put("superServiceImplClass" , getSuperClassName(config.getSuperServiceImplClass()));
-        objectMap.put("superControllerClassPackage" , config.getSuperControllerClass());
-        objectMap.put("superControllerClass" , getSuperClassName(config.getSuperControllerClass()));
+        objectMap.put("author", globalConfig.getAuthor());
+        objectMap.put("idType", globalConfig.getIdType() == null ? null : globalConfig.getIdType().toString());
+        objectMap.put("logicDeleteFieldName", config.getStrategyConfig().getLogicDeleteFieldName());
+        objectMap.put("versionFieldName", config.getStrategyConfig().getVersionFieldName());
+        objectMap.put("activeRecord", globalConfig.isActiveRecord());
+        objectMap.put("kotlin", globalConfig.isKotlin());
+        objectMap.put("swagger2", globalConfig.isSwagger2());
+        objectMap.put("date", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+        objectMap.put("table", tableInfo);
+        objectMap.put("enableCache", globalConfig.isEnableCache());
+        objectMap.put("baseResultMap", globalConfig.isBaseResultMap());
+        objectMap.put("baseColumnList", globalConfig.isBaseColumnList());
+        objectMap.put("entity", tableInfo.getEntityName());
+        objectMap.put("entitySerialVersionUID", config.getStrategyConfig().isEntitySerialVersionUID());
+        objectMap.put("entityColumnConstant", config.getStrategyConfig().isEntityColumnConstant());
+        objectMap.put("entityBuilderModel", config.getStrategyConfig().isEntityBuilderModel());
+        objectMap.put("entityLombokModel", config.getStrategyConfig().isEntityLombokModel());
+        objectMap.put("entityBooleanColumnRemoveIsPrefix", config.getStrategyConfig().isEntityBooleanColumnRemoveIsPrefix());
+        objectMap.put("superEntityClass", getSuperClassName(config.getSuperEntityClass()));
+        objectMap.put("superMapperClassPackage", config.getSuperMapperClass());
+        objectMap.put("superMapperClass", getSuperClassName(config.getSuperMapperClass()));
+        objectMap.put("superServiceClassPackage", config.getSuperServiceClass());
+        objectMap.put("superServiceClass", getSuperClassName(config.getSuperServiceClass()));
+        objectMap.put("superServiceImplClassPackage", config.getSuperServiceImplClass());
+        objectMap.put("superServiceImplClass", getSuperClassName(config.getSuperServiceImplClass()));
+        objectMap.put("superControllerClassPackage", config.getSuperControllerClass());
+        objectMap.put("superControllerClass", getSuperClassName(config.getSuperControllerClass()));
         return config.getInjectionConfig().prepareObjectMap(objectMap);
     }
 
