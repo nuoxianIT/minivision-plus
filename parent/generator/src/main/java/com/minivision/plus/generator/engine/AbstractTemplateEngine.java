@@ -198,7 +198,7 @@ public abstract class AbstractTemplateEngine {
                     // 创建zip压缩包
                     toZip(outDir, outputStream, true);
                     // 删掉普通文件夹
-                    //deleteDir(new File(outDir));
+                    deleteDir(new File(outDir));
                     logger.debug("文件输出目录:" + outDir);
                     return value + ".zip";
                 }
