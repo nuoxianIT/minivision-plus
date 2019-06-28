@@ -202,7 +202,19 @@ public abstract class AbstractTemplateEngine {
                         toZip(outDir, outputStream, true);
                         // 删掉普通文件夹
                         deleteDir(new File(outDir));
-                    } else {
+                    } else if(osName.contains("Linux")){
+                        // 指定输出路径
+                        if (outDir.contains("/zip")) {
+                            file = outDir.replaceAll("/zip", "/file");
+                        }
+                        logger.info("[AbstarctTemplateEngine]  outDir is {}", outDir);
+                        OutputStream outputStream = new FileOutputStream(file + value + ".zip");
+                        logger.info("[AbstarctTemplateEngine] outputStream is {}", file + value + ".zip");
+                        // 创建zip压缩包
+                        toZip(outDir, outputStream, true);
+                        // 删掉普通文件夹
+                        deleteDir(new File(outDir));
+                    }else {
                         logger.debug("文件输出目录:" + outDir);
                     }
                     return value + ".zip";
