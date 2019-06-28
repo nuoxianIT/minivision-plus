@@ -201,11 +201,11 @@ public abstract class AbstractTemplateEngine {
                         // 创建zip压缩包
                         toZip(outDir, outputStream, true);
                         // 删掉普通文件夹
-                        // deleteDir(new File(outDir));
+                        deleteDir(new File(outDir));
                     } else {
                         logger.debug("文件输出目录:" + outDir);
                     }
-                    return file + value + ".zip";
+                    return value + ".zip";
                 }
             } catch (IOException e) {
                 e.printStackTrace();
