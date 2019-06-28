@@ -185,39 +185,21 @@ public abstract class AbstractTemplateEngine {
                 && StringUtils.isNotEmpty(outDir)) {
             try {
                 String osName = System.getProperty("os.name");
-                logger.info("AbstractTemplateEngine System getProperty is ",osName);
+                logger.info("AbstractTemplateEngine System getProperty is ", osName);
                 if (osName != null) {
                     String file = null;
-                    if (osName.contains("Mac")) {
-                        Runtime.getRuntime().exec("open " + outDir);
-                    } else if (osName.contains("Windows")) {
-                        // 指定输出路径
-                        if (outDir.contains("/zip")) {
-                            file = outDir.replaceAll("/zip", "/file");
-                        }
-                        logger.info("[AbstarctTemplateEngine] outDir is {}", outDir);
-                        OutputStream outputStream = new FileOutputStream(file + value + ".zip");
-                        logger.info("[AbstarctTemplateEngine] outputStream is {}", file + value + ".zip");
-                        Runtime.getRuntime().exec("cmd /c start " + file);
-                        // 创建zip压缩包
-                        toZip(outDir, outputStream, true);
-                        // 删掉普通文件夹
-                        deleteDir(new File(outDir));
-                    } else if(osName.contains("Linux")){
-                        // 指定输出路径
-                        if (outDir.contains("/zip")) {
-                            file = outDir.replaceAll("/zip", "/file");
-                        }
-                        logger.info("[AbstarctTemplateEngine]  outDir is {}", outDir);
-                        OutputStream outputStream = new FileOutputStream(file + value + ".zip");
-                        logger.info("[AbstarctTemplateEngine] outputStream is {}", file + value + ".zip");
-                        // 创建zip压缩包
-                        toZip(outDir, outputStream, true);
-                        // 删掉普通文件夹
-                        deleteDir(new File(outDir));
-                    }else {
-                        logger.debug("文件输出目录:" + outDir);
+                    // 指定输出路径
+                    if (outDir.contains("/zip")) {
+                        file = outDir.replaceAll("/zip", "/file");
                     }
+                    logger.info("[AbstarctTemplateEngine]  outDir is {}", outDir);
+                    OutputStream outputStream = new FileOutputStream(file + value + ".zip");
+                    logger.info("[AbstarctTemplateEngine] outputStream is {}", file + value + ".zip");
+                    // 创建zip压缩包
+                    toZip(outDir, outputStream, true);
+                    // 删掉普通文件夹
+                    //deleteDir(new File(outDir));
+                    logger.debug("文件输出目录:" + outDir);
                     return value + ".zip";
                 }
             } catch (IOException e) {
