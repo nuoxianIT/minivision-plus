@@ -185,6 +185,7 @@ public abstract class AbstractTemplateEngine {
                 && StringUtils.isNotEmpty(outDir)) {
             try {
                 String osName = System.getProperty("os.name");
+                logger.info("AbstractTemplateEngine System getProperty is ",osName);
                 if (osName != null) {
                     String file = null;
                     if (osName.contains("Mac")) {
