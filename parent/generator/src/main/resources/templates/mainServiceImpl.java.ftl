@@ -1,6 +1,6 @@
 package ${package.MainServiceImpl};
 
-import ${package.Facade}.${table.facadeName};
+import org.springframework.beans.factory.annotation.Autowired;
 import ${package.MainService}.${table.mainServiceName};
 import ${package.ReqDto}.${table.reqDtoName};
 import ${package.Mapper}.${table.mapperName};
