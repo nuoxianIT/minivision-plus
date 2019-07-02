@@ -12,6 +12,7 @@ import org.springframework.beans.BeanUtils;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
