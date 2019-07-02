@@ -9,8 +9,9 @@ import com.minivision.common.framework.facade.FacadeResps;
 import com.minivision.common.framework.facade.exception.BusinessException;
 import org.springframework.stereotype.Component;
 import com.alibaba.dubbo.config.annotation.Service;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 /**
  * <p>
