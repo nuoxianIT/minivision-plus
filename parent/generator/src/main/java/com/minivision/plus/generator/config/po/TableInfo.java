@@ -38,22 +38,44 @@ import java.util.stream.IntStream;
 public class TableInfo {
 
     private final Set<String> importPackages = new HashSet<>();
+
     private boolean convert;
+
     private String name;
+
     private String comment;
+
     private String entityName;
+
+    private String respDtoName;
+
+    private String reqDtoName;
+
     private String mapperName;
+
     private String xmlName;
+
     private String serviceName;
+
     private String serviceImplName;
+
+    private String mainServiceName;
+
+    private String mainServiceImplName;
+
     private String facadeName;
+
     private String facadeImplName;
+
     private String controllerName;
+
     private List<TableField> fields;
+
     /**
      * 公共字段
      */
     private List<TableField> commonFields;
+
     private String fieldNames;
 
     public TableInfo setConvert(boolean convert) {
@@ -77,6 +99,10 @@ public class TableInfo {
                 }
             } else if (!entityName.equalsIgnoreCase(name)) {
                 this.convert = true;
+            } else if (!reqDtoName.equalsIgnoreCase(name)) {
+                this.convert = true;
+            } else if (!respDtoName.equalsIgnoreCase(name)) {
+                this.convert = true;
             }
         }
         return this;
@@ -88,6 +114,18 @@ public class TableInfo {
 
     public TableInfo setEntityName(StrategyConfig strategyConfig, String entityName) {
         this.entityName = entityName;
+        this.setConvert(strategyConfig);
+        return this;
+    }
+
+    public TableInfo setReqDtoName(StrategyConfig strategyConfig, String reqDtoName) {
+        this.reqDtoName = reqDtoName;
+        this.setConvert(strategyConfig);
+        return this;
+    }
+
+    public TableInfo setRespDtoName(StrategyConfig strategyConfig, String respDtoName) {
+        this.respDtoName = respDtoName;
         this.setConvert(strategyConfig);
         return this;
     }

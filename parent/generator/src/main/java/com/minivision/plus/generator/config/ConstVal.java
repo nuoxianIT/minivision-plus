@@ -32,16 +32,30 @@ public interface ConstVal {
     String ENTITY = "Entity";
     String SERVICE = "Service";
     String SERVICE_IMPL = "ServiceImpl";
+    String MAIN_SERVICE = "MainService";
+    String MAIN_SERVICE_IMPL = "MainServiceImpl";
+    String MAIN_SERVICE_KEY = "Service";
+    String MAIN_SERVICE_IMPL_KEY = "ServiceImpl";
     String MAPPER = "Mapper";
+    String REQDTO = "ReqDto";
+    String RESPDTO = "RespDto";
+    String FACADE = "Facade";
+    String FACADE_IMPL = "FacadeImpl";
     String XML = "Xml";
     String CONTROLLER = "Controller";
 
     String ENTITY_PATH = "entity_path";
     String SERVICE_PATH = "service_path";
     String SERVICE_IMPL_PATH = "service_impl_path";
+    String MAIN_SERVICE_PATH = "main_service_path";
+    String MAIN_SERVICE_IMPL_PATH = "main_service_impl_path";
     String MAPPER_PATH = "mapper_path";
     String XML_PATH = "xml_path";
     String CONTROLLER_PATH = "controller_path";
+    String REQDTO_PATH = "reqDto_path";
+    String RESPDTO_PATH = "respDto_path";
+    String FACADE_PATH = "facade_path";
+    String FACADE_IMPL_PATH = "facade_impl_path";
 
     String JAVA_TMPDIR = "java.io.tmpdir";
     String UTF8 = StandardCharsets.UTF_8.name();
@@ -57,7 +71,13 @@ public interface ConstVal {
     String TEMPLATE_XML = "/templates/mapper.xml";
     String TEMPLATE_SERVICE = "/templates/service.java";
     String TEMPLATE_SERVICE_IMPL = "/templates/serviceImpl.java";
+    String TEMPLATE_MAIN_SERVICE = "/templates/mainService.java";
+    String TEMPLATE_MAIN_SERVICE_IMPL = "/templates/mainServiceImpl.java";
     String TEMPLATE_CONTROLLER = "/templates/controller.java";
+    String TEMPLATE_FACADE = "/templates/facade.java";
+    String TEMPLATE_FACADE_IMPL = "/templates/facadeImpl.java";
+    String TEMPLATE_REQDTO = "/templates/reqDto.java";
+    String TEMPLATE_RESPDTO = "/templates/respDto.java";
 
     String VM_LOAD_PATH_KEY = "file.resource.loader.class";
     String VM_LOAD_PATH_VALUE = "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader";

@@ -47,6 +47,26 @@ public class PackageConfig {
     private String entity = "entity";
 
     /**
+     * respDto包名
+     */
+    private String respDto = "dto";
+
+    /**
+     * reqDto包名
+     */
+    private String reqDto = "dto";
+
+    /**
+     * facade包名
+     */
+    private String facade = "facade";
+
+    /**
+     * facadeImpl包名
+     */
+    private String facadeImpl = "impl";
+
+    /**
      * Service包名
      */
     private String service = "service";
@@ -55,6 +75,16 @@ public class PackageConfig {
      * Service Impl包名
      */
     private String serviceImpl = "impl";
+
+    /**
+     * mainService包名
+     */
+    private String mainService = "service";
+
+    /**
+     * mainService Impl包名
+     */
+    private String mainServiceImpl = "impl";
 
     /**
      * Mapper包名

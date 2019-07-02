@@ -28,5 +28,11 @@ public enum FileType {
     SERVICE,
     SERVICE_IMPL,
     CONTROLLER,
-    OTHER
+    OTHER,
+    FACADE,
+    FACADE_IMPL,
+    REQDTO,
+    RESPDTO,
+    MAIN_SERVICE,
+    MAIN_SERVICE_IMPL
 }

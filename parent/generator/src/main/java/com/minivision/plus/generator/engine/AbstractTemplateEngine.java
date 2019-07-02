@@ -76,6 +76,7 @@ public abstract class AbstractTemplateEngine {
             List<TableInfo> tableInfoList = getConfigBuilder().getTableInfoList();
             for (TableInfo tableInfo : tableInfoList) {
                 Map<String, Object> objectMap = getObjectMap(tableInfo);
+                logger.info(objectMap.toString());
                 Map<String, String> pathInfo = getConfigBuilder().getPathInfo();
                 TemplateConfig template = getConfigBuilder().getTemplate();
                 // 自定义内容
@@ -92,12 +93,30 @@ public abstract class AbstractTemplateEngine {
                         }
                     }
                 }
+
+
                 // Mp.java
                 String entityName = tableInfo.getEntityName();
                 if (null != entityName && null != pathInfo.get(ConstVal.ENTITY_PATH)) {
                     String entityFile = String.format((pathInfo.get(ConstVal.ENTITY_PATH) + File.separator + "%s" + suffixJavaOrKt()), entityName);
                     if (isCreate(FileType.ENTITY, entityFile)) {
                         writer(objectMap, templateFilePath(template.getEntity(getConfigBuilder().getGlobalConfig().isKotlin())), entityFile);
+                    }
+                }
+                // ReqDto.java
+                String reqDtoName = tableInfo.getReqDtoName();
+                if (null != reqDtoName && null != pathInfo.get(ConstVal.REQDTO_PATH)) {
+                    String reqDtoFile = String.format((pathInfo.get(ConstVal.REQDTO_PATH) + File.separator + "%s" + suffixJavaOrKt()), reqDtoName);
+                    if (isCreate(FileType.REQDTO, reqDtoFile)) {
+                        writer(objectMap, templateFilePath(template.getReqDto(getConfigBuilder().getGlobalConfig().isKotlin())), reqDtoFile);
+                    }
+                }
+                // RespDto.java
+                String respDtoName = tableInfo.getRespDtoName();
+                if (null != respDtoName && null != pathInfo.get(ConstVal.RESPDTO_PATH)) {
+                    String respDtoFile = String.format((pathInfo.get(ConstVal.RESPDTO_PATH) + File.separator + "%s" + suffixJavaOrKt()), respDtoName);
+                    if (isCreate(FileType.RESPDTO, respDtoFile)) {
+                        writer(objectMap, templateFilePath(template.getRespDto(getConfigBuilder().getGlobalConfig().isKotlin())), respDtoFile);
                     }
                 }
                 // MpMapper.java
@@ -125,6 +144,24 @@ public abstract class AbstractTemplateEngine {
                         writer(objectMap, templateFilePath(template.getService()), serviceFile);
                     }
                 }
+                // MainService.java
+                if (null != tableInfo.getMainServiceName() && null != pathInfo.get(ConstVal.MAIN_SERVICE_PATH)) {
+                    String serviceFile = String
+                            .format((pathInfo.get(ConstVal.MAIN_SERVICE_PATH) + File.separator + tableInfo.getMainServiceName() + suffixJavaOrKt()),
+                                    entityName);
+                    if (isCreate(FileType.MAIN_SERVICE, serviceFile)) {
+                        writer(objectMap, templateFilePath(template.getMainService()), serviceFile);
+                    }
+                }
+                // Facade.java
+                if (null != tableInfo.getFacadeName() && null != pathInfo.get(ConstVal.FACADE_PATH)) {
+                    String facadeFile = String
+                            .format((pathInfo.get(ConstVal.FACADE_PATH) + File.separator + tableInfo.getFacadeName() + suffixJavaOrKt()),
+                                    entityName);
+                    if (isCreate(FileType.FACADE, facadeFile)) {
+                        writer(objectMap, templateFilePath(template.getFacade()), facadeFile);
+                    }
+                }
                 // MpServiceImpl.java
                 if (null != tableInfo.getServiceImplName() && null != pathInfo.get(ConstVal.SERVICE_IMPL_PATH)) {
                     String implFile = String
@@ -132,6 +169,24 @@ public abstract class AbstractTemplateEngine {
                                     entityName);
                     if (isCreate(FileType.SERVICE_IMPL, implFile)) {
                         writer(objectMap, templateFilePath(template.getServiceImpl()), implFile);
+                    }
+                }
+                // MainServiceImpl.java
+                if (null != tableInfo.getMainServiceImplName() && null != pathInfo.get(ConstVal.MAIN_SERVICE_IMPL_PATH)) {
+                    String implFile = String
+                            .format((pathInfo.get(ConstVal.MAIN_SERVICE_IMPL_PATH) + File.separator + tableInfo.getMainServiceImplName() + suffixJavaOrKt()),
+                                    entityName);
+                    if (isCreate(FileType.MAIN_SERVICE_IMPL, implFile)) {
+                        writer(objectMap, templateFilePath(template.getMainServiceImpl()), implFile);
+                    }
+                }
+                // FacadeImpl.java
+                if (null != tableInfo.getFacadeImplName() && null != pathInfo.get(ConstVal.FACADE_IMPL_PATH)) {
+                    String facadeImplFile = String
+                            .format((pathInfo.get(ConstVal.FACADE_IMPL_PATH) + File.separator + tableInfo.getFacadeImplName() + suffixJavaOrKt()),
+                                    entityName);
+                    if (isCreate(FileType.FACADE_IMPL, facadeImplFile)) {
+                        writer(objectMap, templateFilePath(template.getFacadeImpl()), facadeImplFile);
                     }
                 }
                 // MpController.java
@@ -185,16 +240,13 @@ public abstract class AbstractTemplateEngine {
                 && StringUtils.isNotEmpty(outDir)) {
             try {
                 String osName = System.getProperty("os.name");
-                logger.info("AbstractTemplateEngine System getProperty is ", osName);
                 if (osName != null) {
                     String file = null;
                     // 指定输出路径
                     if (outDir.contains("/zip")) {
                         file = outDir.replaceAll("/zip", "/file");
                     }
-                    logger.info("[AbstarctTemplateEngine]  outDir is {}", outDir);
                     OutputStream outputStream = new FileOutputStream(file + value + ".zip");
-                    logger.info("[AbstarctTemplateEngine] outputStream is {}", file + value + ".zip");
                     // 创建zip压缩包
                     toZip(outDir, outputStream, true);
                     // 删掉普通文件夹
@@ -227,7 +279,6 @@ public abstract class AbstractTemplateEngine {
             File sourceFile = new File(srcDir);
             compress(sourceFile, zos, sourceFile.getName(), KeepDirStructure);
             long end = System.currentTimeMillis();
-            System.out.println("压缩完成，耗时：" + (end - start) + " ms");
         } catch (Exception e) {
             throw new RuntimeException("zip error from ZipUtils", e);
         } finally {
@@ -300,7 +351,8 @@ public abstract class AbstractTemplateEngine {
      */
     public static boolean deleteDir(File file) {
         try {
-            if (file.isFile()) {// 表示该文件不是文件夹
+            // 表示该文件不是文件夹
+            if (file.isFile()) {
                 file.delete();
             } else {
                 // 首先得到当前的路径

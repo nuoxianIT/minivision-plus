@@ -16,6 +16,7 @@
 package com.minivision.plus.generator.config.builder;
 
 import com.minivision.plus.annotation.DbType;
+import com.minivision.plus.core.exceptions.MybatisPlusException;
 import com.minivision.plus.core.toolkit.StringPool;
 import com.minivision.plus.core.toolkit.StringUtils;
 import com.minivision.plus.generator.InjectionConfig;
@@ -239,12 +240,18 @@ public class ConfigBuilder {
         // 包信息
         packageInfo = new HashMap<>(8);
         packageInfo.put(ConstVal.MODULE_NAME, config.getModuleName());
-        packageInfo.put(ConstVal.ENTITY, joinPackage(config.getParent(), config.getEntity(),config.getModuleName()));
-        packageInfo.put(ConstVal.MAPPER, joinPackage(config.getParent(), config.getMapper(),config.getModuleName()));
-        packageInfo.put(ConstVal.XML, joinPackage(config.getParent(), config.getXml(),config.getModuleName()));
-        packageInfo.put(ConstVal.SERVICE, joinPackage(config.getParent(), config.getService(),config.getModuleName()));
+        packageInfo.put(ConstVal.ENTITY, joinPackage(config.getParent(), config.getEntity(), config.getModuleName()));
+        packageInfo.put(ConstVal.MAPPER, joinPackage(config.getParent(), config.getMapper(), config.getModuleName()));
+        packageInfo.put(ConstVal.XML, joinPackage(config.getParent(), config.getXml(), config.getModuleName()));
+        packageInfo.put(ConstVal.SERVICE, joinPackage(config.getParent(), config.getService(), config.getModuleName()));
         packageInfo.put(ConstVal.SERVICE_IMPL, joinImplPackage(config.getParent(), config.getServiceImpl()));
-        packageInfo.put(ConstVal.CONTROLLER, joinPackage(config.getParent(), config.getController(),config.getModuleName()));
+        packageInfo.put(ConstVal.MAIN_SERVICE, joinPackage(config.getParent(), config.getMainService(), config.getModuleName()));
+        packageInfo.put(ConstVal.MAIN_SERVICE_IMPL, joinImplPackage(config.getParent(), config.getMainServiceImpl()));
+        packageInfo.put(ConstVal.FACADE_IMPL, joinImplPackage(config.getParent(), config.getFacadeImpl()));
+        packageInfo.put(ConstVal.FACADE, joinPackage(config.getParent(), config.getFacade(), config.getModuleName()));
+        packageInfo.put(ConstVal.REQDTO, joinPackage(config.getParent(), config.getReqDto(), config.getModuleName()));
+        packageInfo.put(ConstVal.RESPDTO, joinPackage(config.getParent(), config.getRespDto(), config.getModuleName()));
+        packageInfo.put(ConstVal.CONTROLLER, joinPackage(config.getParent(), config.getController(), config.getModuleName()));
 
         // 自定义路径
         Map<String, String> configPathInfo = config.getPathInfo();
@@ -259,6 +266,12 @@ public class ConfigBuilder {
             setPathInfo(pathInfo, template.getService(), outputDir, ConstVal.SERVICE_PATH, ConstVal.SERVICE);
             setPathInfo(pathInfo, template.getServiceImpl(), outputDir, ConstVal.SERVICE_IMPL_PATH, ConstVal.SERVICE_IMPL);
             setPathInfo(pathInfo, template.getController(), outputDir, ConstVal.CONTROLLER_PATH, ConstVal.CONTROLLER);
+            setPathInfo(pathInfo, template.getReqDto(), outputDir, ConstVal.REQDTO_PATH, ConstVal.REQDTO);
+            setPathInfo(pathInfo, template.getRespDto(), outputDir, ConstVal.RESPDTO_PATH, ConstVal.RESPDTO);
+            setPathInfo(pathInfo, template.getFacade(), outputDir, ConstVal.FACADE_PATH, ConstVal.FACADE);
+            setPathInfo(pathInfo, template.getFacadeImpl(), outputDir, ConstVal.FACADE_IMPL_PATH, ConstVal.FACADE_IMPL);
+            setPathInfo(pathInfo, template.getMainService(), outputDir, ConstVal.MAIN_SERVICE_PATH, ConstVal.MAIN_SERVICE);
+            setPathInfo(pathInfo, template.getMainServiceImpl(), outputDir, ConstVal.MAIN_SERVICE_IMPL_PATH, ConstVal.MAIN_SERVICE_IMPL);
         }
     }
 
@@ -325,6 +338,8 @@ public class ConfigBuilder {
         String[] tablePrefix = config.getTablePrefix();
         for (TableInfo tableInfo : tableList) {
             String entityName;
+            String reqDtoName;
+            String respDtoName;
             INameConvert nameConvert = strategyConfig.getNameConvert();
             if (null != nameConvert) {
                 // 自定义处理实体名称
@@ -332,11 +347,36 @@ public class ConfigBuilder {
             } else {
                 entityName = NamingStrategy.capitalFirst(processName(tableInfo.getName(), strategy, tablePrefix));
             }
+            if (null != nameConvert) {
+                // 自定义处理实体名称
+                reqDtoName = nameConvert.entityNameConvert(tableInfo) + ConstVal.REQDTO;
+            } else {
+                reqDtoName = NamingStrategy.capitalFirst(processName(tableInfo.getName(), strategy, tablePrefix)) + ConstVal.REQDTO;
+            }
+            if (null != nameConvert) {
+                // 自定义处理实体名称
+                respDtoName = nameConvert.entityNameConvert(tableInfo) + ConstVal.RESPDTO;
+            } else {
+                respDtoName = NamingStrategy.capitalFirst(processName(tableInfo.getName(), strategy, tablePrefix)) + ConstVal.RESPDTO;
+            }
+
             if (StringUtils.isNotEmpty(globalConfig.getEntityName())) {
                 tableInfo.setConvert(true);
                 tableInfo.setEntityName(String.format(globalConfig.getEntityName(), entityName));
             } else {
                 tableInfo.setEntityName(strategyConfig, entityName);
+            }
+            if (StringUtils.isNotEmpty(globalConfig.getReqDtoName())) {
+                tableInfo.setConvert(true);
+                tableInfo.setReqDtoName(String.format(globalConfig.getReqDtoName(), reqDtoName));
+            } else {
+                tableInfo.setReqDtoName(strategyConfig, reqDtoName);
+            }
+            if (StringUtils.isNotEmpty(globalConfig.getRespDtoName())) {
+                tableInfo.setConvert(true);
+                tableInfo.setRespDtoName(String.format(globalConfig.getRespDtoName(), respDtoName));
+            } else {
+                tableInfo.setRespDtoName(strategyConfig, respDtoName);
             }
             if (StringUtils.isNotEmpty(globalConfig.getMapperName())) {
                 tableInfo.setMapperName(String.format(globalConfig.getMapperName(), entityName));
@@ -358,10 +398,30 @@ public class ConfigBuilder {
             } else {
                 tableInfo.setServiceImplName(entityName + ConstVal.SERVICE_IMPL);
             }
+            if (StringUtils.isNotEmpty(globalConfig.getMainServiceName())) {
+                tableInfo.setMainServiceName(String.format(globalConfig.getMainServiceName(), entityName));
+            } else {
+                tableInfo.setMainServiceName(entityName + ConstVal.MAIN_SERVICE);
+            }
+            if (StringUtils.isNotEmpty(globalConfig.getMainServiceImplName())) {
+                tableInfo.setMainServiceImplName(String.format(globalConfig.getMainServiceImplName(), entityName));
+            } else {
+                tableInfo.setMainServiceImplName(entityName + ConstVal.MAIN_SERVICE_IMPL);
+            }
             if (StringUtils.isNotEmpty(globalConfig.getControllerName())) {
                 tableInfo.setControllerName(String.format(globalConfig.getControllerName(), entityName));
             } else {
                 tableInfo.setControllerName(entityName + ConstVal.CONTROLLER);
+            }
+            if (StringUtils.isNotEmpty(globalConfig.getFacadeName())) {
+                tableInfo.setFacadeName(String.format(globalConfig.getFacadeName(), entityName));
+            } else {
+                tableInfo.setFacadeName(entityName + ConstVal.FACADE);
+            }
+            if (StringUtils.isNotEmpty(globalConfig.getFacadeImplName())) {
+                tableInfo.setFacadeImplName(String.format(globalConfig.getFacadeImplName(), entityName));
+            } else {
+                tableInfo.setFacadeImplName(entityName + ConstVal.FACADE_IMPL);
             }
             // 检测导入包
             checkImportPackages(tableInfo);
@@ -508,6 +568,7 @@ public class ConfigBuilder {
             }
             if (notExistTables.size() > 0) {
                 System.err.println("表 " + notExistTables + " 在数据库中不存在！！！");
+                throw new MybatisPlusException("表 " + notExistTables + " 在数据库中不存在！！！");
             }
 
             // 需要反向生成的表信息

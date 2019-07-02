@@ -90,9 +90,13 @@ public class GlobalConfig {
      */
     private String entityName;
     private String mapperName;
+    private String reqDtoName;
+    private String respDtoName;
     private String xmlName;
     private String serviceName;
     private String serviceImplName;
+    private String mainServiceName;
+    private String mainServiceImplName;
     private String facadeName;
     private String facadeImplName;
     private String controllerName;

@@ -39,13 +39,32 @@ public class TemplateConfig {
 
     private String serviceImpl = ConstVal.TEMPLATE_SERVICE_IMPL;
 
+    private String mainService = ConstVal.TEMPLATE_MAIN_SERVICE;
+
+    private String mainServiceImpl = ConstVal.TEMPLATE_MAIN_SERVICE_IMPL;
+
     private String mapper = ConstVal.TEMPLATE_MAPPER;
 
     private String xml = ConstVal.TEMPLATE_XML;
 
     private String controller = ConstVal.TEMPLATE_CONTROLLER;
 
+    private String reqDto = ConstVal.TEMPLATE_REQDTO;
+
+    private String respDto = ConstVal.TEMPLATE_RESPDTO;
+
+    private String facade = ConstVal.TEMPLATE_FACADE;
+
+    private String facadeImpl = ConstVal.TEMPLATE_FACADE_IMPL;
+
     public String getEntity(boolean kotlin) {
         return kotlin ? entityKt : entity;
+    }
+
+    public String getReqDto(boolean kotlin) {
+        return kotlin ? entityKt : reqDto;
+    }
+    public String getRespDto(boolean kotlin) {
+        return kotlin ? entityKt : respDto;
     }
 }
