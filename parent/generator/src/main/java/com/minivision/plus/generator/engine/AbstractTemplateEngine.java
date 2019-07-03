@@ -236,9 +236,6 @@ public abstract class AbstractTemplateEngine {
     public String open() {
         String outDir = getConfigBuilder().getGlobalConfig().getOutputDir();
         String value = getConfigBuilder().getPackageInfo().get("ModuleName");
-        Map<String, String> packageInfo = getConfigBuilder().getPackageInfo();
-        String parent = getConfigBuilder().getPackageInfo().get("Entity");
-        String[] split = parent.split("\\.");
         if (getConfigBuilder().getGlobalConfig().isOpen()
                 && StringUtils.isNotEmpty(outDir)) {
             try {
@@ -247,17 +244,15 @@ public abstract class AbstractTemplateEngine {
                     String file = null;
                     // 指定输出路径
                     if (outDir.contains("/zip")) {
-                        file = outDir.replaceAll("/zip", "/file");
+                        file = outDir.replaceAll("/zip", "/file").replaceAll("src/main/java/","");
                     }
                     OutputStream outputStream = new FileOutputStream(file + value + ".zip");
-                    if (split.length > 0) {
-                        outDir = outDir + split[0] + "/";
-                    }
+                    outDir = outDir.replaceAll("main/java/","");
                     // 创建zip压缩包
                     toZip(outDir, outputStream, true);
+                    Runtime.getRuntime().exec("cmd /c start " + file);
                     // 删掉普通文件夹
                     deleteDir(new File(outDir));
-                    logger.debug("文件输出目录:" + outDir);
                     return value + ".zip";
                 }
             } catch (IOException e) {
@@ -283,6 +278,7 @@ public abstract class AbstractTemplateEngine {
         try {
             zos = new ZipOutputStream(out);
             File sourceFile = new File(srcDir);
+            sourceFile.mkdir();
             compress(sourceFile, zos, sourceFile.getName(), KeepDirStructure);
             long end = System.currentTimeMillis();
         } catch (Exception e) {
