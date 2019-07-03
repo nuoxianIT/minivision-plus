@@ -246,13 +246,13 @@ public abstract class AbstractTemplateEngine {
                         file = outDir.replaceAll("/zip", "/file").replaceAll("src/main/java/","");
                     }
                     OutputStream outputStream = new FileOutputStream(file + value + ".zip");
-                    outDir = outDir.replaceAll("main/java/","");
+                    outDir = outDir.replaceAll("/main/java/","");
                     logger.info("file--------------------------"+file);
                     logger.info("outDir--------------------------"+outDir);
                     // 创建zip压缩包
                     toZip(outDir, outputStream, true);
                     // 删掉普通文件夹
-//                    deleteDir(new File(outDir));
+                    deleteDir(new File(outDir));
                     return value + ".zip";
                 }
             } catch (IOException e) {
