@@ -73,7 +73,7 @@ public class GlobalConfig {
     /**
      * 开启 BaseResultMap
      */
-    private boolean baseResultMap = false;
+    private boolean baseResultMap = true;
 
     /**
      * 时间类型对应策略
