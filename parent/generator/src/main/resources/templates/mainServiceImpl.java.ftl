@@ -62,7 +62,7 @@ public class ${table.mainServiceImplName} implements ${table.mainServiceName} {
     }
 
     //TODO 抽象成公共方法
-    private Device toEntity(${table.reqDtoName} request) {
+    private ${entity} toEntity(${table.reqDtoName} request) {
         ${entity} entity = new ${entity}();
         BeanUtils.copyProperties(request, entity);
         return entity;
