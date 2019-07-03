@@ -94,7 +94,6 @@ public abstract class AbstractTemplateEngine {
                     }
                 }
 
-
                 // Mp.java
                 String entityName = tableInfo.getEntityName();
                 if (null != entityName && null != pathInfo.get(ConstVal.ENTITY_PATH)) {
@@ -174,7 +173,8 @@ public abstract class AbstractTemplateEngine {
                 // MainServiceImpl.java
                 if (null != tableInfo.getMainServiceImplName() && null != pathInfo.get(ConstVal.MAIN_SERVICE_IMPL_PATH)) {
                     String implFile = String
-                            .format((pathInfo.get(ConstVal.MAIN_SERVICE_IMPL_PATH) + File.separator + tableInfo.getMainServiceImplName() + suffixJavaOrKt()),
+                            .format((pathInfo.get(ConstVal.MAIN_SERVICE_IMPL_PATH) + File.separator + tableInfo.getMainServiceImplName()
+                                            + suffixJavaOrKt()),
                                     entityName);
                     if (isCreate(FileType.MAIN_SERVICE_IMPL, implFile)) {
                         writer(objectMap, templateFilePath(template.getMainServiceImpl()), implFile);
@@ -236,6 +236,9 @@ public abstract class AbstractTemplateEngine {
     public String open() {
         String outDir = getConfigBuilder().getGlobalConfig().getOutputDir();
         String value = getConfigBuilder().getPackageInfo().get("ModuleName");
+        Map<String, String> packageInfo = getConfigBuilder().getPackageInfo();
+        String parent = getConfigBuilder().getPackageInfo().get("Entity");
+        String[] split = parent.split("\\.");
         if (getConfigBuilder().getGlobalConfig().isOpen()
                 && StringUtils.isNotEmpty(outDir)) {
             try {
@@ -247,6 +250,9 @@ public abstract class AbstractTemplateEngine {
                         file = outDir.replaceAll("/zip", "/file");
                     }
                     OutputStream outputStream = new FileOutputStream(file + value + ".zip");
+                    if (split.length > 0) {
+                        outDir = outDir + split[0] + "/";
+                    }
                     // 创建zip压缩包
                     toZip(outDir, outputStream, true);
                     // 删掉普通文件夹
