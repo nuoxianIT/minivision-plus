@@ -277,7 +277,6 @@ public abstract class AbstractTemplateEngine {
         try {
             zos = new ZipOutputStream(out);
             File sourceFile = new File(srcDir);
-            sourceFile.mkdir();
             compress(sourceFile, zos, sourceFile.getName(), KeepDirStructure);
             long end = System.currentTimeMillis();
         } catch (Exception e) {
