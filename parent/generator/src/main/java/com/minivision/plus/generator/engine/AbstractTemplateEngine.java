@@ -250,7 +250,6 @@ public abstract class AbstractTemplateEngine {
                     outDir = outDir.replaceAll("main/java/","");
                     // 创建zip压缩包
                     toZip(outDir, outputStream, true);
-                    Runtime.getRuntime().exec("cmd /c start " + file);
                     // 删掉普通文件夹
                     deleteDir(new File(outDir));
                     return value + ".zip";
