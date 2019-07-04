@@ -12,6 +12,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import ${package.Service}.${table.serviceName};
 import ${package.ReqDto}.${table.reqDtoName};
+import java.util.List;
 
 <#if restControllerStyle>
 import org.springframework.web.bind.annotation.RestController;
