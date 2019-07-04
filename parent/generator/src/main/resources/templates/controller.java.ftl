@@ -33,7 +33,7 @@ import org.springframework.stereotype.Controller;
 <#else>
 @Controller
 </#if>
-@RequestMapping("<#if package.ModuleName??>/${package.ModuleName}</#if>/<#if controllerMappingHyphenStyle??>${controllerMappingHyphen}<#else>${table.entityPath}</#if>")
+@RequestMapping("/${package.ModuleName}")
 @Slf4j
 public class ${table.controllerName} {
 

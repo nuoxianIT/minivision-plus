@@ -244,10 +244,10 @@ public class ConfigBuilder {
         packageInfo.put(ConstVal.MAPPER, joinPackage(config.getParent(), config.getMapper(), config.getModuleName()));
         packageInfo.put(ConstVal.XML, joinPackage(config.getParent(), config.getXml(), config.getModuleName()));
         packageInfo.put(ConstVal.SERVICE, joinPackage(config.getParent(), config.getService(), config.getModuleName()));
-        packageInfo.put(ConstVal.SERVICE_IMPL, joinImplPackage(config.getParent(), config.getServiceImpl()));
+        packageInfo.put(ConstVal.SERVICE_IMPL, joinPackage(config.getParent(), config.getServiceImpl(), config.getModuleName()));
         packageInfo.put(ConstVal.MAIN_SERVICE, joinPackage(config.getParent(), config.getMainService(), config.getModuleName()));
-        packageInfo.put(ConstVal.MAIN_SERVICE_IMPL, joinImplPackage(config.getParent(), config.getMainServiceImpl()));
-        packageInfo.put(ConstVal.FACADE_IMPL, joinImplPackage(config.getParent(), config.getFacadeImpl()));
+        packageInfo.put(ConstVal.MAIN_SERVICE_IMPL, joinPackage(config.getParent(), config.getMainServiceImpl(), config.getModuleName()));
+        packageInfo.put(ConstVal.FACADE_IMPL, joinPackage(config.getParent(), config.getFacadeImpl(), config.getModuleName()));
         packageInfo.put(ConstVal.FACADE, joinPackage(config.getParent(), config.getFacade(), config.getModuleName()));
         packageInfo.put(ConstVal.REQDTO, joinPackage(config.getParent(), config.getReqDto(), config.getModuleName()));
         packageInfo.put(ConstVal.RESPDTO, joinPackage(config.getParent(), config.getRespDto(), config.getModuleName()));
@@ -740,22 +740,9 @@ public class ConfigBuilder {
         if (StringUtils.isEmpty(parent)) {
             return subPackage;
         }
-        return parent + StringPool.DOT + subPackage + StringPool.DOT + moduleName;
-    }
-
-    /**
-     * 连接父子包名(改写后用于生成serviceImpl)
-     *
-     * @param parent     父包名
-     * @param subPackage 子包名
-     * @return 连接后的包名
-     */
-    private String joinImplPackage(String parent, String subPackage) {
-        if (StringUtils.isEmpty(parent)) {
-            return subPackage;
-        }
         return parent + StringPool.DOT + subPackage;
     }
+
 
     /**
      * 处理字段名称
