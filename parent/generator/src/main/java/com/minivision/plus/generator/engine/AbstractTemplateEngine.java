@@ -78,9 +78,53 @@ public abstract class AbstractTemplateEngine {
                 Map<String, Object> objectMap = getObjectMap(tableInfo);
                 Map<String, String> pathInfo = getConfigBuilder().getPathInfo();
                 TemplateConfig template = getConfigBuilder().getTemplate();
-                // 自定义内容
+
                 InjectionConfig injectionConfig = getConfigBuilder().getInjectionConfig();
-                if (null != injectionConfig) {
+
+                String entityName = tableInfo.getEntityName();
+
+                if (template.getEntityIsGenerator()) {
+                    // Mp.java
+                    if (null != entityName && null != pathInfo.get(ConstVal.ENTITY_PATH)) {
+                        String entityFile = String
+                                .format((pathInfo.get(ConstVal.ENTITY_PATH) + File.separator + "%s" + suffixJavaOrKt()), entityName);
+                        if (isCreate(FileType.ENTITY, entityFile)) {
+                            writer(objectMap, templateFilePath(template.getEntity(getConfigBuilder().getGlobalConfig().isKotlin())), entityFile);
+                        }
+                    }
+                }
+                if (template.getDtoIsGenerator()) {
+                    // ReqDto.java
+                    String reqDtoName = tableInfo.getReqDtoName();
+                    if (null != reqDtoName && null != pathInfo.get(ConstVal.REQDTO_PATH)) {
+                        String reqDtoFile = String
+                                .format((pathInfo.get(ConstVal.REQDTO_PATH) + File.separator + "%s" + suffixJavaOrKt()), reqDtoName);
+                        if (isCreate(FileType.REQDTO, reqDtoFile)) {
+                            writer(objectMap, templateFilePath(template.getReqDto(getConfigBuilder().getGlobalConfig().isKotlin())), reqDtoFile);
+                        }
+                    }
+                    // RespDto.java
+                    String respDtoName = tableInfo.getRespDtoName();
+                    if (null != respDtoName && null != pathInfo.get(ConstVal.RESPDTO_PATH)) {
+                        String respDtoFile = String
+                                .format((pathInfo.get(ConstVal.RESPDTO_PATH) + File.separator + "%s" + suffixJavaOrKt()), respDtoName);
+                        if (isCreate(FileType.RESPDTO, respDtoFile)) {
+                            writer(objectMap, templateFilePath(template.getRespDto(getConfigBuilder().getGlobalConfig().isKotlin())), respDtoFile);
+                        }
+                    }
+                }
+
+                if (template.getMapperIsGenerator()) {
+                    // MpMapper.java
+                    if (null != tableInfo.getMapperName() && null != pathInfo.get(ConstVal.MAPPER_PATH)) {
+                        String mapperFile = String
+                                .format((pathInfo.get(ConstVal.MAPPER_PATH) + File.separator + tableInfo.getMapperName() + suffixJavaOrKt()),
+                                        entityName);
+                        if (isCreate(FileType.MAPPER, mapperFile)) {
+                            writer(objectMap, templateFilePath(template.getMapper()), mapperFile);
+                        }
+                    }
+                    // 自定义内容
                     injectionConfig.initMap();
                     objectMap.put("cfg", injectionConfig.getMap());
                     List<FileOutConfig> focList = injectionConfig.getFileOutConfigList();
@@ -91,110 +135,89 @@ public abstract class AbstractTemplateEngine {
                             }
                         }
                     }
+                    // MpMapper.xml
+                    if (null != tableInfo.getXmlName() && null != pathInfo.get(ConstVal.XML_PATH)) {
+                        String xmlFile = String
+                                .format((pathInfo.get(ConstVal.XML_PATH) + File.separator + tableInfo.getXmlName() + ConstVal.XML_SUFFIX), entityName);
+                        if (isCreate(FileType.XML, xmlFile)) {
+                            writer(objectMap, templateFilePath(template.getXml()), xmlFile);
+                        }
+                    }
                 }
 
-                // Mp.java
-                String entityName = tableInfo.getEntityName();
-                if (null != entityName && null != pathInfo.get(ConstVal.ENTITY_PATH)) {
-                    String entityFile = String.format((pathInfo.get(ConstVal.ENTITY_PATH) + File.separator + "%s" + suffixJavaOrKt()), entityName);
-                    if (isCreate(FileType.ENTITY, entityFile)) {
-                        writer(objectMap, templateFilePath(template.getEntity(getConfigBuilder().getGlobalConfig().isKotlin())), entityFile);
+                if (template.getMainServiceIsGenerator()){
+                    // MainService.java
+                    if (null != tableInfo.getMainServiceName() && null != pathInfo.get(ConstVal.MAIN_SERVICE_PATH)) {
+                        String serviceFile = String
+                                .format((pathInfo.get(ConstVal.MAIN_SERVICE_PATH) + File.separator + tableInfo.getMainServiceName() + suffixJavaOrKt()),
+                                        entityName);
+                        if (isCreate(FileType.MAIN_SERVICE, serviceFile)) {
+                            writer(objectMap, templateFilePath(template.getMainService()), serviceFile);
+                        }
+                    }
+                    // MainServiceImpl.java
+                    if (null != tableInfo.getMainServiceImplName() && null != pathInfo.get(ConstVal.MAIN_SERVICE_IMPL_PATH)) {
+                        String implFile = String
+                                .format((pathInfo.get(ConstVal.MAIN_SERVICE_IMPL_PATH) + File.separator + tableInfo.getMainServiceImplName()
+                                                + suffixJavaOrKt()),
+                                        entityName);
+                        if (isCreate(FileType.MAIN_SERVICE_IMPL, implFile)) {
+                            writer(objectMap, templateFilePath(template.getMainServiceImpl()), implFile);
+                        }
                     }
                 }
-                // ReqDto.java
-                String reqDtoName = tableInfo.getReqDtoName();
-                if (null != reqDtoName && null != pathInfo.get(ConstVal.REQDTO_PATH)) {
-                    String reqDtoFile = String.format((pathInfo.get(ConstVal.REQDTO_PATH) + File.separator + "%s" + suffixJavaOrKt()), reqDtoName);
-                    if (isCreate(FileType.REQDTO, reqDtoFile)) {
-                        writer(objectMap, templateFilePath(template.getReqDto(getConfigBuilder().getGlobalConfig().isKotlin())), reqDtoFile);
+
+                if (template.getServiceIsGenerator()){
+                    // IMpService.java
+                    if (null != tableInfo.getServiceName() && null != pathInfo.get(ConstVal.SERVICE_PATH)) {
+                        String serviceFile = String
+                                .format((pathInfo.get(ConstVal.SERVICE_PATH) + File.separator + tableInfo.getServiceName() + suffixJavaOrKt()),
+                                        entityName);
+                        if (isCreate(FileType.SERVICE, serviceFile)) {
+                            writer(objectMap, templateFilePath(template.getService()), serviceFile);
+                        }
+                    }
+                    // MpServiceImpl.java
+                    if (null != tableInfo.getServiceImplName() && null != pathInfo.get(ConstVal.SERVICE_IMPL_PATH)) {
+                        String implFile = String
+                                .format((pathInfo.get(ConstVal.SERVICE_IMPL_PATH) + File.separator + tableInfo.getServiceImplName() + suffixJavaOrKt()),
+                                        entityName);
+                        if (isCreate(FileType.SERVICE_IMPL, implFile)) {
+                            writer(objectMap, templateFilePath(template.getServiceImpl()), implFile);
+                        }
                     }
                 }
-                // RespDto.java
-                String respDtoName = tableInfo.getRespDtoName();
-                if (null != respDtoName && null != pathInfo.get(ConstVal.RESPDTO_PATH)) {
-                    String respDtoFile = String.format((pathInfo.get(ConstVal.RESPDTO_PATH) + File.separator + "%s" + suffixJavaOrKt()), respDtoName);
-                    if (isCreate(FileType.RESPDTO, respDtoFile)) {
-                        writer(objectMap, templateFilePath(template.getRespDto(getConfigBuilder().getGlobalConfig().isKotlin())), respDtoFile);
+
+                if (template.getFacadeIsGenerator()){
+                    // Facade.java
+                    if (null != tableInfo.getFacadeName() && null != pathInfo.get(ConstVal.FACADE_PATH)) {
+                        String facadeFile = String
+                                .format((pathInfo.get(ConstVal.FACADE_PATH) + File.separator + tableInfo.getFacadeName() + suffixJavaOrKt()),
+                                        entityName);
+                        if (isCreate(FileType.FACADE, facadeFile)) {
+                            writer(objectMap, templateFilePath(template.getFacade()), facadeFile);
+                        }
+                    }
+                    // FacadeImpl.java
+                    if (null != tableInfo.getFacadeImplName() && null != pathInfo.get(ConstVal.FACADE_IMPL_PATH)) {
+                        String facadeImplFile = String
+                                .format((pathInfo.get(ConstVal.FACADE_IMPL_PATH) + File.separator + tableInfo.getFacadeImplName() + suffixJavaOrKt()),
+                                        entityName);
+                        if (isCreate(FileType.FACADE_IMPL, facadeImplFile)) {
+                            writer(objectMap, templateFilePath(template.getFacadeImpl()), facadeImplFile);
+                        }
                     }
                 }
-                // MpMapper.java
-                if (null != tableInfo.getMapperName() && null != pathInfo.get(ConstVal.MAPPER_PATH)) {
-                    String mapperFile = String
-                            .format((pathInfo.get(ConstVal.MAPPER_PATH) + File.separator + tableInfo.getMapperName() + suffixJavaOrKt()), entityName);
-                    if (isCreate(FileType.MAPPER, mapperFile)) {
-                        writer(objectMap, templateFilePath(template.getMapper()), mapperFile);
-                    }
-                }
-                // MpMapper.xml
-                if (null != tableInfo.getXmlName() && null != pathInfo.get(ConstVal.XML_PATH)) {
-                    String xmlFile = String
-                            .format((pathInfo.get(ConstVal.XML_PATH) + File.separator + tableInfo.getXmlName() + ConstVal.XML_SUFFIX), entityName);
-                    if (isCreate(FileType.XML, xmlFile)) {
-                        writer(objectMap, templateFilePath(template.getXml()), xmlFile);
-                    }
-                }
-                // IMpService.java
-                if (null != tableInfo.getServiceName() && null != pathInfo.get(ConstVal.SERVICE_PATH)) {
-                    String serviceFile = String
-                            .format((pathInfo.get(ConstVal.SERVICE_PATH) + File.separator + tableInfo.getServiceName() + suffixJavaOrKt()),
-                                    entityName);
-                    if (isCreate(FileType.SERVICE, serviceFile)) {
-                        writer(objectMap, templateFilePath(template.getService()), serviceFile);
-                    }
-                }
-                // MainService.java
-                if (null != tableInfo.getMainServiceName() && null != pathInfo.get(ConstVal.MAIN_SERVICE_PATH)) {
-                    String serviceFile = String
-                            .format((pathInfo.get(ConstVal.MAIN_SERVICE_PATH) + File.separator + tableInfo.getMainServiceName() + suffixJavaOrKt()),
-                                    entityName);
-                    if (isCreate(FileType.MAIN_SERVICE, serviceFile)) {
-                        writer(objectMap, templateFilePath(template.getMainService()), serviceFile);
-                    }
-                }
-                // Facade.java
-                if (null != tableInfo.getFacadeName() && null != pathInfo.get(ConstVal.FACADE_PATH)) {
-                    String facadeFile = String
-                            .format((pathInfo.get(ConstVal.FACADE_PATH) + File.separator + tableInfo.getFacadeName() + suffixJavaOrKt()),
-                                    entityName);
-                    if (isCreate(FileType.FACADE, facadeFile)) {
-                        writer(objectMap, templateFilePath(template.getFacade()), facadeFile);
-                    }
-                }
-                // MpServiceImpl.java
-                if (null != tableInfo.getServiceImplName() && null != pathInfo.get(ConstVal.SERVICE_IMPL_PATH)) {
-                    String implFile = String
-                            .format((pathInfo.get(ConstVal.SERVICE_IMPL_PATH) + File.separator + tableInfo.getServiceImplName() + suffixJavaOrKt()),
-                                    entityName);
-                    if (isCreate(FileType.SERVICE_IMPL, implFile)) {
-                        writer(objectMap, templateFilePath(template.getServiceImpl()), implFile);
-                    }
-                }
-                // MainServiceImpl.java
-                if (null != tableInfo.getMainServiceImplName() && null != pathInfo.get(ConstVal.MAIN_SERVICE_IMPL_PATH)) {
-                    String implFile = String
-                            .format((pathInfo.get(ConstVal.MAIN_SERVICE_IMPL_PATH) + File.separator + tableInfo.getMainServiceImplName()
-                                            + suffixJavaOrKt()),
-                                    entityName);
-                    if (isCreate(FileType.MAIN_SERVICE_IMPL, implFile)) {
-                        writer(objectMap, templateFilePath(template.getMainServiceImpl()), implFile);
-                    }
-                }
-                // FacadeImpl.java
-                if (null != tableInfo.getFacadeImplName() && null != pathInfo.get(ConstVal.FACADE_IMPL_PATH)) {
-                    String facadeImplFile = String
-                            .format((pathInfo.get(ConstVal.FACADE_IMPL_PATH) + File.separator + tableInfo.getFacadeImplName() + suffixJavaOrKt()),
-                                    entityName);
-                    if (isCreate(FileType.FACADE_IMPL, facadeImplFile)) {
-                        writer(objectMap, templateFilePath(template.getFacadeImpl()), facadeImplFile);
-                    }
-                }
-                // MpController.java
-                if (null != tableInfo.getControllerName() && null != pathInfo.get(ConstVal.CONTROLLER_PATH)) {
-                    String controllerFile = String
-                            .format((pathInfo.get(ConstVal.CONTROLLER_PATH) + File.separator + tableInfo.getControllerName() + suffixJavaOrKt()),
-                                    entityName);
-                    if (isCreate(FileType.CONTROLLER, controllerFile)) {
-                        writer(objectMap, templateFilePath(template.getController()), controllerFile);
+
+                if (template.getControllerIsGenerator()){
+                    // MpController.java
+                    if (null != tableInfo.getControllerName() && null != pathInfo.get(ConstVal.CONTROLLER_PATH)) {
+                        String controllerFile = String
+                                .format((pathInfo.get(ConstVal.CONTROLLER_PATH) + File.separator + tableInfo.getControllerName() + suffixJavaOrKt()),
+                                        entityName);
+                        if (isCreate(FileType.CONTROLLER, controllerFile)) {
+                            writer(objectMap, templateFilePath(template.getController()), controllerFile);
+                        }
                     }
                 }
             }
@@ -243,12 +266,12 @@ public abstract class AbstractTemplateEngine {
                     String file = null;
                     // 指定输出路径
                     if (outDir.contains("/zip")) {
-                        file = outDir.replaceAll("/zip", "/file").replaceAll("src/main/java/","");
+                        file = outDir.replaceAll("/zip", "/file").replaceAll("src/main/java/", "");
                     }
                     OutputStream outputStream = new FileOutputStream(file + value + ".zip");
-                    outDir = outDir.replaceAll("/main/java/","");
-                    logger.info("file--------------------------"+file);
-                    logger.info("outDir--------------------------"+outDir);
+                    outDir = outDir.replaceAll("/main/java/", "");
+                    logger.info("file--------------------------" + file);
+                    logger.info("outDir--------------------------" + outDir);
                     // 创建zip压缩包
                     toZip(outDir, outputStream, true);
                     // 删掉普通文件夹

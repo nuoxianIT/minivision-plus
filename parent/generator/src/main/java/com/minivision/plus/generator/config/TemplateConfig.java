@@ -57,6 +57,41 @@ public class TemplateConfig {
 
     private String facadeImpl = ConstVal.TEMPLATE_FACADE_IMPL;
 
+    /**
+     * 判断是否生成Controller
+     */
+    private Boolean controllerIsGenerator;
+
+    /**
+     * 判断是否生成Service
+     */
+    private Boolean serviceIsGenerator;
+
+    /**
+     * 判断是否生成mainService
+     */
+    private Boolean mainServiceIsGenerator;
+
+    /**
+     * 判断是否生成Facade
+     */
+    private Boolean facadeIsGenerator;
+
+    /**
+     * 判断是否生成Dto
+     */
+    private Boolean dtoIsGenerator;
+
+    /**
+     * 判断是否生成Mapper
+     */
+    private Boolean mapperIsGenerator;
+
+    /**
+     * 判断是否生成Entity
+     */
+    private Boolean entityIsGenerator;
+
     public String getEntity(boolean kotlin) {
         return kotlin ? entityKt : entity;
     }

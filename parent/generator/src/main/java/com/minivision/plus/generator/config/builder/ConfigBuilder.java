@@ -260,18 +260,32 @@ public class ConfigBuilder {
         } else {
             // 生成路径信息
             pathInfo = new HashMap<>(6);
-            setPathInfo(pathInfo, template.getEntity(getGlobalConfig().isKotlin()), outputDir, ConstVal.ENTITY_PATH, ConstVal.ENTITY);
-            setPathInfo(pathInfo, template.getMapper(), outputDir, ConstVal.MAPPER_PATH, ConstVal.MAPPER);
-            setPathInfo(pathInfo, template.getXml(), outputDir, ConstVal.XML_PATH, ConstVal.XML);
-            setPathInfo(pathInfo, template.getService(), outputDir, ConstVal.SERVICE_PATH, ConstVal.SERVICE);
-            setPathInfo(pathInfo, template.getServiceImpl(), outputDir, ConstVal.SERVICE_IMPL_PATH, ConstVal.SERVICE_IMPL);
-            setPathInfo(pathInfo, template.getController(), outputDir, ConstVal.CONTROLLER_PATH, ConstVal.CONTROLLER);
-            setPathInfo(pathInfo, template.getReqDto(), outputDir, ConstVal.REQDTO_PATH, ConstVal.REQDTO);
-            setPathInfo(pathInfo, template.getRespDto(), outputDir, ConstVal.RESPDTO_PATH, ConstVal.RESPDTO);
-            setPathInfo(pathInfo, template.getFacade(), outputDir, ConstVal.FACADE_PATH, ConstVal.FACADE);
-            setPathInfo(pathInfo, template.getFacadeImpl(), outputDir, ConstVal.FACADE_IMPL_PATH, ConstVal.FACADE_IMPL);
-            setPathInfo(pathInfo, template.getMainService(), outputDir, ConstVal.MAIN_SERVICE_PATH, ConstVal.MAIN_SERVICE);
-            setPathInfo(pathInfo, template.getMainServiceImpl(), outputDir, ConstVal.MAIN_SERVICE_IMPL_PATH, ConstVal.MAIN_SERVICE_IMPL);
+            if (template.getEntityIsGenerator()){
+                setPathInfo(pathInfo, template.getEntity(getGlobalConfig().isKotlin()), outputDir, ConstVal.ENTITY_PATH, ConstVal.ENTITY);
+            }
+            if (template.getMapperIsGenerator()){
+                setPathInfo(pathInfo, template.getMapper(), outputDir, ConstVal.MAPPER_PATH, ConstVal.MAPPER);
+                setPathInfo(pathInfo, template.getXml(), outputDir, ConstVal.XML_PATH, ConstVal.XML);
+            }
+            if (template.getServiceIsGenerator()){
+                setPathInfo(pathInfo, template.getService(), outputDir, ConstVal.SERVICE_PATH, ConstVal.SERVICE);
+                setPathInfo(pathInfo, template.getServiceImpl(), outputDir, ConstVal.SERVICE_IMPL_PATH, ConstVal.SERVICE_IMPL);
+            }
+            if (template.getControllerIsGenerator()){
+                setPathInfo(pathInfo, template.getController(), outputDir, ConstVal.CONTROLLER_PATH, ConstVal.CONTROLLER);
+            }
+            if (template.getDtoIsGenerator()){
+                setPathInfo(pathInfo, template.getReqDto(), outputDir, ConstVal.REQDTO_PATH, ConstVal.REQDTO);
+                setPathInfo(pathInfo, template.getRespDto(), outputDir, ConstVal.RESPDTO_PATH, ConstVal.RESPDTO);
+            }
+            if (template.getFacadeIsGenerator()){
+                setPathInfo(pathInfo, template.getFacade(), outputDir, ConstVal.FACADE_PATH, ConstVal.FACADE);
+                setPathInfo(pathInfo, template.getFacadeImpl(), outputDir, ConstVal.FACADE_IMPL_PATH, ConstVal.FACADE_IMPL);
+            }
+            if (template.getMainServiceIsGenerator()){
+                setPathInfo(pathInfo, template.getMainService(), outputDir, ConstVal.MAIN_SERVICE_PATH, ConstVal.MAIN_SERVICE);
+                setPathInfo(pathInfo, template.getMainServiceImpl(), outputDir, ConstVal.MAIN_SERVICE_IMPL_PATH, ConstVal.MAIN_SERVICE_IMPL);
+            }
         }
     }
 
