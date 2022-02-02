@@ -22,7 +22,7 @@
         <freemarker.version>2.3.28</freemarker.version>
         <ibeetl.version>2.9.8</ibeetl.version>
         <sqlserver.version>4.0</sqlserver.version>
-        <postgresql.version>9.4.1212</postgresql.version>
+        <postgresql.version>42.2.25</postgresql.version>
         <logback.version>1.2.3</logback.version>
         <swagger.version>1.5.21</swagger.version>
     </properties>
